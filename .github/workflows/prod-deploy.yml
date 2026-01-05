@@ -14,17 +14,17 @@ jobs:
       - name: Build Docker Image
         run: docker build -t myapp:prod ./app
 
-      - name: Deploy to DEV EC2
+      - name: Deploy to PROD EC2
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.DEV_HOST }}
-          username: ${{ secrets.DEV_USER }}
-          key: ${{ secrets.DEV_SSH_KEY }}
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
           script: |
-            docker stop dev-app || true
-            docker rm dev-app || true
+            docker stop prod-app || true
+            docker rm prod-app || true
             docker run -d \
-              --name dev-app \
-              --env-file /home/ubuntu/.env.dev \
+              --name prod-app \
+              --env-file /home/ubuntu/.env.prod \
               -p 3000:3000 \
               myapp:prod
