@@ -30,4 +30,3 @@ jobs:
               --env-file /home/ubuntu/.env.prod \
               -p 3000:3000 \
               myapp:prod
-#pavan
